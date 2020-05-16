@@ -5,9 +5,11 @@ import './collection-preview.style.scss';
 
 const CollectionPreview = ({ title, items }) => (
     <div className='collection-preview'>
-        <Link to={`/shop/${title.toLowerCase()}`}>
-            <h1 className='title'>{title}</h1>
-        </Link>
+        <span className='title'>
+            <Link to={`/shop/${title.toLowerCase()}`}>
+                {title}
+            </Link>
+        </span>
         <div className='preview'>
             {
                 items
