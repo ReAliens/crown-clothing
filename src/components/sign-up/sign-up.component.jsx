@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
-import './sign-up.style.scss';
+import { connect } from 'react-redux';
 
-const SignUp = () => {
+import './sign-up.style.scss';
+import { signupUser } from '../../redux/user/user.action';
+
+const SignUp = (props) => {
     const [userCredentials, setCredentials] = useState({
         displayName: '',
         email: '',
@@ -20,15 +22,7 @@ const SignUp = () => {
             return;
         }
         try {
-            const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            await createUserProfileDocument(user, { displayName });
-            setCredentials({
-                ...userCredentials,
-                displayName: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            })
+            props.signupUser({ email, password, displayName });
         } catch (error) {
             console.error(error);
         }
@@ -52,4 +46,9 @@ const SignUp = () => {
         </div>
     )
 }
-export default SignUp;
+
+const mapDispatchToProps = (dispatch) => ({
+    signupUser: ({ email, password, displayName }) => dispatch(signupUser({ email, password, displayName })),
+})
+
+export default connect(null, mapDispatchToProps)(SignUp);

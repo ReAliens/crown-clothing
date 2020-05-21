@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
-import './sign-in.style.scss';
+import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { connect } from 'react-redux';
 
-const SignIn = () => {
+import './sign-in.style.scss';
+import { loginUser } from '../../redux/user/user.action';
+
+const SignIn = (props) => {
     const [userCredential, setCredential] = useState({ email: '', password: '' })
     const { email, password } = userCredential;
     const handleSubmit = async event => {
         event.preventDefault();
         try {
-            await auth.signInWithEmailAndPassword(email, password);
+            props.loginUser({ email, password });
             setCredential({ email: '', password: '' });
         } catch (error) {
             console.log(error);
@@ -43,5 +46,7 @@ const SignIn = () => {
         </div>
     )
 }
-
-export default SignIn;
+const mapDispatchToProps = (dispatch) => ({
+    loginUser: ({ email, password }) => dispatch(loginUser({ email, password })),
+})
+export default connect(null, mapDispatchToProps)(SignIn);
