@@ -7,7 +7,9 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import { createStructuredSelector } from 'reselect';
 import { selectCartHidden } from '../../redux/cart/cart.selector';
 import { selectCurrentUser } from '../../redux/user/user.selector'
-import {logoutUser} from '../../redux/user/user.action';
+import { logoutUser } from '../../redux/user/user.action';
+import { clickOutsideCart } from '../../redux/cart/cart.action';
+
 
 //import './header.style.scss';
 import {
@@ -17,7 +19,7 @@ import {
     OptionLinkContainer
 } from './header.style';
 
-const Header = ({ currentUser, hidden, logoutUser }) => (
+const Header = ({ currentUser, hidden, logoutUser, clickOutsideCart }) => (
     <HeaderContainer>
         <LogoContainer to='/'>
             <Logo className='logo' />
@@ -39,19 +41,26 @@ const Header = ({ currentUser, hidden, logoutUser }) => (
                     :
                     <OptionLinkContainer to='/signin'>Sign In</OptionLinkContainer>
             }
-            <CartIcon />
+            <div className='container' tabIndex='0' onBlur={() => clickOutsideCart()}>
+                <div className='first-child' >
+                    <CartIcon />
+                </div>
+                <div className='seconed-child' >
+                    {
+                        hidden ? null : <CartDropdown />
+                    }
+                </div>
+            </div>
         </OptionsContainer>
-        {
-            hidden ? null : <CartDropdown />
-        }
     </HeaderContainer>
 );
-const mapDispatchToProps = dispatch =>({
-    logoutUser:()=>dispatch(logoutUser())
+const mapDispatchToProps = dispatch => ({
+    logoutUser: () => dispatch(logoutUser()),
+    clickOutsideCart: () => dispatch(clickOutsideCart())
 })
 
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     hidden: selectCartHidden
 });
-export default connect(mapStateToProps,mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
