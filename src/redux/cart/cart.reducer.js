@@ -17,6 +17,11 @@ const cartReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 hidden: true
             }
+            case CartActionTypes.DELETE_ITEMS_AFTER_LOGGEDOUT:
+                return{
+                    ...state,
+                    cartItems:[]
+                }
         case CartActionTypes.ADD_ITEM:
             return {
                 ...state,

@@ -22,3 +22,6 @@ export const removeItemFromCart = item =>({
     type: CartActionTypes.REMOVE_ITEM,
     payload: item
 })
+ export const deleteItemsAfterLoggedOut =()=>({
+     type : CartActionTypes.DELETE_ITEMS_AFTER_LOGGEDOUT,
+ })

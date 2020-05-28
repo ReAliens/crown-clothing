@@ -8,7 +8,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectCartHidden } from '../../redux/cart/cart.selector';
 import { selectCurrentUser } from '../../redux/user/user.selector'
 import { logoutUser } from '../../redux/user/user.action';
-import { clickOutsideCart } from '../../redux/cart/cart.action';
+import { clickOutsideCart, deleteItemsAfterLoggedOut } from '../../redux/cart/cart.action';
 
 
 //import './header.style.scss';
@@ -19,7 +19,7 @@ import {
     OptionLinkContainer
 } from './header.style';
 
-const Header = ({ currentUser, hidden, logoutUser, clickOutsideCart }) => (
+const Header = ({ currentUser, hidden, logoutUser, clickOutsideCart, deleteItemsAfterLoggedOut }) => (
     <HeaderContainer>
         <LogoContainer to='/'>
             <Logo className='logo' />
@@ -35,6 +35,7 @@ const Header = ({ currentUser, hidden, logoutUser, clickOutsideCart }) => (
                 currentUser ?
                     <OptionLinkContainer as='div' onClick={() => {
                         logoutUser();
+                        deleteItemsAfterLoggedOut();
                         // setCurrentUser(null)
 
                     }}>Sign Out</OptionLinkContainer>
@@ -56,7 +57,8 @@ const Header = ({ currentUser, hidden, logoutUser, clickOutsideCart }) => (
 );
 const mapDispatchToProps = dispatch => ({
     logoutUser: () => dispatch(logoutUser()),
-    clickOutsideCart: () => dispatch(clickOutsideCart())
+    clickOutsideCart: () => dispatch(clickOutsideCart()),
+    deleteItemsAfterLoggedOut: () => dispatch(deleteItemsAfterLoggedOut())
 })
 
 const mapStateToProps = createStructuredSelector({
