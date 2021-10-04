@@ -24,10 +24,10 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path='/' component={HomePage} />
-          <Route exact path='/crown-clothing' component={HomePage} />
-          <Route path='/crown-clothing/shop' component={ShopPage} />
-          <Route exact path='/crown-clothing/checkout' component={CheckoutPage} />
-          <Route exact path='/crown-clothing/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignUp />)} />
+          {/* <Route exact path='/crown-clothing' component={HomePage} /> */}
+          <Route path='/shop' component={ShopPage} />
+          <Route exact path='/checkout' component={CheckoutPage} />
+          <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignUp />)} />
         </Switch>
       </div>
     );

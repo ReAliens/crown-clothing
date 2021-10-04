@@ -34,7 +34,7 @@ const Header = ({
     </LogoContainer>
     <OptionsContainer>
       <OptionLinkContainer to="/shop">shop</OptionLinkContainer>
-      {/* <OptionLinkContainer to="/contact">contact</OptionLinkContainer> */}
+      <OptionLinkContainer to="/contact">contact</OptionLinkContainer>
       {currentUser ? (
         <OptionLinkContainer
           as="div"
@@ -46,7 +46,9 @@ const Header = ({
         >
           Sign Out
         </OptionLinkContainer>
-      ) : null}
+      ) : (
+        <OptionLinkContainer to="/signin">Sign In</OptionLinkContainer>
+      )}
       <div className="container" tabIndex="0" onBlur={() => clickOutsideCart()}>
         <div className="first-child">
           <CartIcon />
